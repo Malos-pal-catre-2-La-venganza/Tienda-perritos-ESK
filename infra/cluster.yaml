@@ -1,0 +1,22 @@
+# Plantilla para crear el cluster EKS en AWS Academy Learner Lab.
+# IMPORTANTE: reemplaza TU_ACCOUNT_ID por tu Account ID (lo ves en "AWS Details" del Lab).
+# En Academy no puedes crear roles IAM nuevos, por eso se usa el LabRole que ya existe.
+
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: tienda-cluster
+  region: us-east-1
+  version: "1.30"
+
+iam:
+  serviceRoleARN: arn:aws:iam::211125736105:role/LabRole
+
+managedNodeGroups:
+  - name: ng-tienda
+    instanceType: t3.medium
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 3
+    iam:
+      instanceRoleARN: arn:aws:iam::211125736105:role/LabRole
